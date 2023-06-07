@@ -41,6 +41,9 @@ const Add_product = () => {
   const saleRef = useRef(false);
   const codeRef = useRef(null);
   const sizeRef = useRef(null);
+  const colorRef = useRef(null);
+  const colorCodeRef = useRef(null);
+  const skuRef = useRef(null);
 
   const onChange = (e) => {
     setValue(e);
@@ -80,9 +83,6 @@ const Add_product = () => {
     formData.append("file", image);
     const res = await fetch("http://localhost:9001/api/file/upload", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
       body: formData,
     });
     const data = await res.json();
@@ -93,7 +93,13 @@ const Add_product = () => {
 
   const handleValidSubmit = async (e) => {
     e.preventDefault();
-    const body = {
+    const vaiantsBody = {
+      color: {
+        color_name: colorRef.current.value,
+        color_code: colorCodeRef.current.value,
+      },
+    };
+    const productBody = {
       name: nameRef.current.value,
       brand: brandRef.current.value,
       description: value,
@@ -104,13 +110,13 @@ const Add_product = () => {
       sale: saleRef.current.checked,
       images: [imgData.src],
     };
-    console.log(body);
+    console.log(productBody);
     const res = await fetch("http://localhost:9001/api/products", {
       method: "POST",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
-      body: JSON.stringify(body),
+      body: JSON.stringify(productBody),
     });
     const data = await res.json();
     console.log(data);
@@ -313,6 +319,42 @@ const Add_product = () => {
                             Please choose Valid Code.
                           </div>
                         </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Color Name :
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control "
+                              name="product_code"
+                              id="validationCustomUsername"
+                              type="text"
+                              required
+                              innerRef={colorRef}
+                            />
+                          </div>
+                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                            Please choose Valid Code.
+                          </div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Color Code :
+                          </Label>
+                          <div className="col-2">
+                            <Input
+                              className="form-control "
+                              name="color_code"
+                              id="validationCustomUsername"
+                              type="color"
+                              required
+                              innerRef={colorCodeRef}
+                            />
+                          </div>
+                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                            Please choose Valid Code.
+                          </div>
+                        </FormGroup>
                       </div>
                       <div className="form">
                         <FormGroup className="form-group mb-3 row">
@@ -332,6 +374,7 @@ const Add_product = () => {
                             </select>
                           </div>
                         </FormGroup>
+
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
                             Total Products :
@@ -370,6 +413,24 @@ const Add_product = () => {
                               </div>
                             </div>
                           </fieldset>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            SKU :
+                          </Label>
+                          <div className="col-2">
+                            <Input
+                              className="form-control "
+                              name="stock"
+                              id="validationCustomUsername"
+                              type="text"
+                              required
+                              innerRef={skuRef}
+                            />
+                          </div>
+                          <div className="invalid-feedback offset-sm-4 offset-xl-3">
+                            Please choose Valid Code.
+                          </div>
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4">
