@@ -93,7 +93,9 @@ const Add_product = () => {
 
   const handleValidSubmit = async (e) => {
     e.preventDefault();
-    const variantsBody = {
+
+    // body to send with request => http://localhost:9001/api/products/add-variant
+    const variantsReqBody = {
       color: {
         color_name: colorRef.current.value,
         color_code: colorCodeRef.current.value,
@@ -105,7 +107,24 @@ const Add_product = () => {
       },
     };
 
-    const productBody = {
+    // request to add variants
+    const variantsRes = await fetch(
+      `http://localhost:9001/api/products/add-variant?productId=${imgData.id}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: JSON.stringify(variantsReqBody),
+      }
+    );
+    const variantsResData = await variantsRes.json();
+
+    // log the response to the console
+    console.log(variantsResData);
+
+    // body to send with request => http://localhost:9001/api/products
+    const productReqBody = {
       name: nameRef.current.value,
       brand: brandRef.current.value,
       description: value,
@@ -115,15 +134,24 @@ const Add_product = () => {
       new: newRef.current.checked,
       sale: saleRef.current.checked,
       images: [imgData.src],
+      variants: [
+        {
+          // color_name: colorRef.current.value,
+          color_code: colorCodeRef.current.value,
+          size: {
+            size: sizeRef.current.value,
+            stock: quantity,
+          },
+        },
+      ],
     };
-    console.log(variantsBody);
-    console.log(productBody);
+    console.log(JSON.stringify(productReqBody));
     const res = await fetch("http://localhost:9001/api/products", {
       method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(productBody),
+      body: JSON.stringify(productReqBody),
     });
     const data = await res.json();
     console.log(data);
