@@ -79,16 +79,19 @@ const Add_product = () => {
       setDummyimgs(dummyimgs);
     };
     reader.readAsDataURL(image);
+
+    // upload image to the server
     const formData = new FormData();
     formData.append("file", image);
+
+    // send upload request
     const res = await fetch("http://localhost:9001/api/file/upload", {
       method: "POST",
       body: formData,
     });
     const data = await res.json();
-
+    // update imgData state with the response data
     setImgData(data);
-    console.log(data);
   };
 
   const handleValidSubmit = async (e) => {
@@ -145,7 +148,8 @@ const Add_product = () => {
         },
       ],
     };
-    console.log(JSON.stringify(productReqBody));
+
+    // request to add product
     const res = await fetch("http://localhost:9001/api/products", {
       method: "POST",
       headers: {
