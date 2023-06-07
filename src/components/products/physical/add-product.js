@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, createRef, useRef, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import {
   Card,
@@ -83,12 +83,29 @@ const Add_product = () => {
       body: formData,
     });
     const data = await res.json();
+
     setImgData(data);
+    console.log(data);
   };
 
-  const handleValidSubmit = (e) => {
+  const handleValidSubmit = async (e) => {
     e.preventDefault();
-    console.log(e.target);
+    const res = await fetch("http://localhost:9001/api/products", {
+      method: "POST",
+      body: JSON.stringify({
+        name: nameRef.current.value,
+        brand: brandRef.current.value,
+        description: value,
+        price: priceRef.current.value,
+        discount: discountRef.current.value,
+        category: categoryRef.current.value,
+        new: newRef.current.value,
+        sale: saleRef.current.value,
+        images: [imgData.src],
+      }),
+    });
+    const data = await res.json();
+    console.log(data);
   };
   return (
     <Fragment>
