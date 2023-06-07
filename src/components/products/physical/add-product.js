@@ -37,8 +37,8 @@ const Add_product = () => {
   const discountRef = useRef(null);
   const typeRef = useRef(null);
   const categoryRef = useRef(null);
-  const newRef = useRef(null);
-  const saleRef = useRef(null);
+  const newRef = useRef(false);
+  const saleRef = useRef(false);
   const codeRef = useRef(null);
   const sizeRef = useRef(null);
 
@@ -80,6 +80,9 @@ const Add_product = () => {
     formData.append("file", image);
     const res = await fetch("http://localhost:9001/api/file/upload", {
       method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: formData,
     });
     const data = await res.json();
@@ -90,19 +93,24 @@ const Add_product = () => {
 
   const handleValidSubmit = async (e) => {
     e.preventDefault();
+    const body = {
+      name: nameRef.current.value,
+      brand: brandRef.current.value,
+      description: value,
+      price: priceRef.current.value,
+      discount: discountRef.current.value,
+      category: categoryRef.current.value,
+      new: newRef.current.checked,
+      sale: saleRef.current.checked,
+      images: [imgData.src],
+    };
+    console.log(body);
     const res = await fetch("http://localhost:9001/api/products", {
       method: "POST",
-      body: JSON.stringify({
-        name: nameRef.current.value,
-        brand: brandRef.current.value,
-        description: value,
-        price: priceRef.current.value,
-        discount: discountRef.current.value,
-        category: categoryRef.current.value,
-        new: newRef.current.value,
-        sale: saleRef.current.value,
-        images: [imgData.src],
-      }),
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: JSON.stringify(body),
     });
     const data = await res.json();
     console.log(data);
@@ -172,7 +180,7 @@ const Add_product = () => {
                               id="validationCustom01"
                               type="text"
                               required
-                              ref={nameRef}
+                              innerRef={nameRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -188,7 +196,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
-                              ref={brandRef}
+                              innerRef={brandRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -204,7 +212,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="number"
                               required
-                              ref={priceRef}
+                              innerRef={priceRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -220,7 +228,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="number"
                               required
-                              ref={discountRef}
+                              innerRef={discountRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -236,7 +244,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
-                              ref={typeRef}
+                              innerRef={typeRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -252,7 +260,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
-                              ref={categoryRef}
+                              innerRef={categoryRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -267,8 +275,7 @@ const Add_product = () => {
                               name="new"
                               id="validationCustom02"
                               type="checkbox"
-                              required
-                              ref={newRef}
+                              innerRef={newRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -283,8 +290,7 @@ const Add_product = () => {
                               name="sale"
                               id="validationCustom02"
                               type="checkbox"
-                              required
-                              ref={saleRef}
+                              innerRef={saleRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -300,7 +306,7 @@ const Add_product = () => {
                               id="validationCustomUsername"
                               type="number"
                               required
-                              ref={codeRef}
+                              innerRef={codeRef}
                             />
                           </div>
                           <div className="invalid-feedback offset-sm-4 offset-xl-3">
@@ -317,7 +323,7 @@ const Add_product = () => {
                             <select
                               className="form-control digits"
                               id="exampleFormControlSelect1"
-                              ref={sizeRef}
+                              innerRef={sizeRef}
                             >
                               <option>Small</option>
                               <option>Medium</option>
