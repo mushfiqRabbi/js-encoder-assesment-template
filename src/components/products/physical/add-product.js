@@ -93,12 +93,18 @@ const Add_product = () => {
 
   const handleValidSubmit = async (e) => {
     e.preventDefault();
-    const vaiantsBody = {
+    const variantsBody = {
       color: {
         color_name: colorRef.current.value,
         color_code: colorCodeRef.current.value,
       },
+      image_id: imgData.image_id,
+      size: {
+        size: sizeRef.current.value,
+        stock: quantity,
+      },
     };
+
     const productBody = {
       name: nameRef.current.value,
       brand: brandRef.current.value,
@@ -110,6 +116,7 @@ const Add_product = () => {
       sale: saleRef.current.checked,
       images: [imgData.src],
     };
+    console.log(variantsBody);
     console.log(productBody);
     const res = await fetch("http://localhost:9001/api/products", {
       method: "POST",
@@ -365,12 +372,12 @@ const Add_product = () => {
                             <select
                               className="form-control digits"
                               id="exampleFormControlSelect1"
-                              innerRef={sizeRef}
+                              ref={sizeRef}
                             >
-                              <option>Small</option>
-                              <option>Medium</option>
-                              <option>Large</option>
-                              <option>Extra Large</option>
+                              <option value="S">Small</option>
+                              <option value="M">Medium</option>
+                              <option value="L">Large</option>
+                              <option value="XL">Extra Large</option>
                             </select>
                           </div>
                         </FormGroup>
