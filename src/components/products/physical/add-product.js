@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Breadcrumb from "../../common/breadcrumb";
 import {
   Card,
@@ -20,7 +20,7 @@ import MDEditor from "@uiw/react-md-editor";
 const Add_product = () => {
   const [value, setValue] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [file, setFile] = useState();
+  const [imgData, setImgData] = useState();
   const [dummyimgs, setDummyimgs] = useState([
     { img: user },
     { img: user },
@@ -30,8 +30,21 @@ const Add_product = () => {
     { img: user },
   ]);
 
+  // form fields
+  const nameRef = useRef(null);
+  const brandRef = useRef(null);
+  const priceRef = useRef(null);
+  const discountRef = useRef(null);
+  const typeRef = useRef(null);
+  const categoryRef = useRef(null);
+  const newRef = useRef(null);
+  const saleRef = useRef(null);
+  const codeRef = useRef(null);
+  const sizeRef = useRef(null);
+
   const onChange = (e) => {
     setValue(e);
+    console.log(e);
   };
 
   const IncrementItem = () => {
@@ -70,10 +83,13 @@ const Add_product = () => {
       body: formData,
     });
     const data = await res.json();
-    console.log(data);
+    setImgData(data);
   };
 
-  const handleValidSubmit = () => {};
+  const handleValidSubmit = (e) => {
+    e.preventDefault();
+    console.log(e.target);
+  };
   return (
     <Fragment>
       <Breadcrumb title="Add Product" parent="Physical" />
@@ -139,6 +155,7 @@ const Add_product = () => {
                               id="validationCustom01"
                               type="text"
                               required
+                              ref={nameRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -154,6 +171,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
+                              ref={brandRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -169,6 +187,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="number"
                               required
+                              ref={priceRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -184,6 +203,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="number"
                               required
+                              ref={discountRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -199,6 +219,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
+                              ref={typeRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -214,6 +235,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="text"
                               required
+                              ref={categoryRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -229,6 +251,7 @@ const Add_product = () => {
                               id="validationCustom02"
                               type="checkbox"
                               required
+                              ref={newRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -240,10 +263,11 @@ const Add_product = () => {
                           <div className="col-auto">
                             <Input
                               className="form-control mb-0"
-                              name="new"
+                              name="sale"
                               id="validationCustom02"
                               type="checkbox"
                               required
+                              ref={saleRef}
                             />
                           </div>
                           <div className="valid-feedback">Looks good!</div>
@@ -259,6 +283,7 @@ const Add_product = () => {
                               id="validationCustomUsername"
                               type="number"
                               required
+                              ref={codeRef}
                             />
                           </div>
                           <div className="invalid-feedback offset-sm-4 offset-xl-3">
@@ -275,6 +300,7 @@ const Add_product = () => {
                             <select
                               className="form-control digits"
                               id="exampleFormControlSelect1"
+                              ref={sizeRef}
                             >
                               <option>Small</option>
                               <option>Medium</option>
