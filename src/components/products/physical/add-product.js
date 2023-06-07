@@ -175,14 +175,74 @@ const Add_product = () => {
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
-                            Price :
+                            Discount :
                           </Label>
                           <div className="col-xl-8 col-sm-7">
                             <Input
                               className="form-control mb-0"
-                              name="price"
+                              name="discount"
                               id="validationCustom02"
                               type="number"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Type :
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control mb-0"
+                              name="type"
+                              id="validationCustom02"
+                              type="text"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Category :
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control mb-0"
+                              name="category"
+                              id="validationCustom02"
+                              type="text"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            New :
+                          </Label>
+                          <div className="col-auto">
+                            <Input
+                              className="form-control mb-0"
+                              name="new"
+                              id="validationCustom02"
+                              type="checkbox"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Sale :
+                          </Label>
+                          <div className="col-auto">
+                            <Input
+                              className="form-control mb-0"
+                              name="new"
+                              id="validationCustom02"
+                              type="checkbox"
                               required
                             />
                           </div>
