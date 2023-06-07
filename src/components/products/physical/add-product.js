@@ -145,6 +145,36 @@ const Add_product = () => {
                         </FormGroup>
                         <FormGroup className="form-group mb-3 row">
                           <Label className="col-xl-3 col-sm-4 mb-0">
+                            Brand :
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control mb-0"
+                              name="brand"
+                              id="validationCustom02"
+                              type="text"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
+                            Price :
+                          </Label>
+                          <div className="col-xl-8 col-sm-7">
+                            <Input
+                              className="form-control mb-0"
+                              name="price"
+                              id="validationCustom02"
+                              type="number"
+                              required
+                            />
+                          </div>
+                          <div className="valid-feedback">Looks good!</div>
+                        </FormGroup>
+                        <FormGroup className="form-group mb-3 row">
+                          <Label className="col-xl-3 col-sm-4 mb-0">
                             Price :
                           </Label>
                           <div className="col-xl-8 col-sm-7">
